@@ -13,72 +13,36 @@ sap.ui.define([
         },
 
         onNameFilterChange: function () {
-            var sFilterValue = this.getView().byId("nameFilter").getValue();
             var oTable = this.getView().byId("usersTable");
             var oBinding = oTable.getBinding("items");
             var aFilter = [];
-            if (sFilterValue) {
-                aFilter.push(new Filter({
-                    filters: [
-                        new Filter("name/first", FilterOperator.Contains, sFilterValue),
-                        new Filter("name/last", FilterOperator.Contains, sFilterValue),
-                    ],
-                    and: false
-                }));
-            }
+            aFilter.push(this._createNameFilter());
             oBinding.filter(aFilter);
         },
 
         onAgeFilterChange: function () {
-            var iFilterValue = this.getView().byId("ageFilter").getValue();
-            var sComparisonSign = this.getView().byId("ageComparison").getSelectedKey();
-            var sFilterOperator;
-            switch (sComparisonSign) {
-                case "more":
-                    sFilterOperator = FilterOperator.GT;
-                    break;
-                case "less":
-                    sFilterOperator = FilterOperator.LT;
-                    break;
-            }
             var oTable = this.getView().byId("usersTable");
             var oBinding = oTable.getBinding("items");
             var aFilter = [];
-            if (iFilterValue) {
-                aFilter.push(new Filter("dob/age", sFilterOperator, iFilterValue));
-            }
+            aFilter.push(this._createAgeFilter());
             oBinding.filter(aFilter);
         },
 
         onGenderFilterChange: function () {
-            var sFilterValue = this.getView().byId("genderFilter").getSelectedKey();
             var oTable = this.getView().byId("usersTable");
             var oBinding = oTable.getBinding("items");
             var aFilter = [];
-            if (sFilterValue) {
-                aFilter.push(new Filter("gender", FilterOperator.EQ, sFilterValue));
-            }
+            aFilter.push(this._createGenderFilter());
             oBinding.filter(aFilter);
         },
 
         onMultipleFilterBtnPress: function () {
-            var sNameFilterValue = this.getView().byId("nameFilter").getValue();
-            var iAgeFilterValue = this.getView().byId("ageFilter").getValue();
-            var sGenderFilterValue = this.getView().byId("genderFilter").getSelectedKey();
             var oTable = this.getView().byId("usersTable");
             var oBinding = oTable.getBinding("items");
             var aFilter = [];
-            if (sNameFilterValue || iAgeFilterValue || sGenderFilterValue) {
-                aFilter.push(new Filter({
-                    filters: [
-                        new Filter("name/first", FilterOperator.Contains, sNameFilterValue),
-                        new Filter("name/last", FilterOperator.Contains, sNameFilterValue)
-                    ],
-                    and: false
-                }));
-                aFilter.push(new Filter("dob/age", FilterOperator.GE, iAgeFilterValue));
-                aFilter.push(new Filter("gender", FilterOperator.EQ, sGenderFilterValue));
-            }
+            aFilter.push(this._createNameFilter());
+            aFilter.push(this._createAgeFilter());
+            aFilter.push(this._createGenderFilter());           
             oBinding.filter(aFilter);
         },
 
@@ -100,6 +64,43 @@ sap.ui.define([
             oRouter.navTo("userDetails", {
                 invoicePath: sPath
             });
-        }
+        },
+
+        _createNameFilter: function () {
+            var sFilterValue = this.getView().byId("nameFilter").getValue();
+            var oFilter;
+            oFilter = new Filter({
+                filters: [
+                    new Filter("name/first", FilterOperator.Contains, sFilterValue),
+                    new Filter("name/last", FilterOperator.Contains, sFilterValue),
+                ],
+                and: false
+            });
+            return oFilter;
+        },
+
+        _createAgeFilter: function () {
+            var iFilterValue = this.getView().byId("ageFilter").getValue();
+            var sComparisonSign = this.getView().byId("ageComparison").getSelectedKey();
+            var sFilterOperator;
+            switch (sComparisonSign) {
+                case "more":
+                    sFilterOperator = FilterOperator.GT;
+                    break;
+                case "less":
+                    sFilterOperator = FilterOperator.LT;
+                    break;
+            }
+            var oFilter;
+            oFilter = new Filter("dob/age", sFilterOperator, iFilterValue);
+            return oFilter;
+        },
+
+        _createGenderFilter: function () {
+            var sFilterValue = this.getView().byId("genderFilter").getSelectedKey();
+            var oFilter;
+            oFilter = new Filter("gender", FilterOperator.EQ, sFilterValue);
+            return oFilter;
+        },
     });
 });
