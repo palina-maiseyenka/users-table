@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+        <f:SimpleForm
+            id="userDetailsDisplay"
+			title="{usersData>name/last} {usersData>name/first}"
+			editable="false"
+			layout="ResponsiveGridLayout"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<Label text="{i18n>gender}" />
+				<Text text="{usersData>gender}"/>
+				<Label text="{i18n>age}" />
+				<Text text="{usersData>dob/age}"/>
+				<Label text="{i18n>country}" />
+                <Text text="{usersData>location/country}"/>                
+				<Label text="{i18n>city}" />
+                <Text text="{usersData>location/city}"/>
+				<Label text="{i18n>email}" />
+				<Text text="{usersData>email}">
+				</Text>
+			</f:content>
+		</f:SimpleForm>
+</core:FragmentDefinition>

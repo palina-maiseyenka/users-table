@@ -1,0 +1,12 @@
+{
+    "name": "Users Info",
+    "version": "1.0.0",
+    "author": "Palina Maiseyenka",
+    "description": "Task app for SAPUI5 practicing",
+    "dependencies": {
+      "@openui5/sap.m": "^1",
+      "@openui5/sap.ui.core": "^1",
+      "@openui5/themelib_sap_belize": "^1"
+    }
+  }
+  

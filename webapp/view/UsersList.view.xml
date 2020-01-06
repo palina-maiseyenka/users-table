@@ -1,0 +1,19 @@
+<mvc:View
+	controllerName="palina.maiseyenka.controller.UsersList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true">
+	<Page
+        title="{i18n>homePageTitle}"
+        floatingFooter="true">       
+		<content>
+			<mvc:XMLView viewName="palina.maiseyenka.view.UsersTable"/>
+		</content>
+        <footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Add" icon="sap-icon://add" press=".openAddUserModal"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

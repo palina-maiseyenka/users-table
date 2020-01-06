@@ -1,0 +1,85 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "palina.maiseyenka",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"usersData_alias": {
+				"uri": "model/data.json",
+				"type": "JSON"
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "palina.maiseyenka.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60",
+			"libs": {
+				"sap.m": {}
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "palina.maiseyenka.i18n.i18n"
+				}
+			},
+			"usersData": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "usersData_alias"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "palina.maiseyenka.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "usersList",
+					"target": "usersList"
+				},
+				{
+					"pattern": "userDetails/{invoicePath}",
+					"name": "userDetails",
+					"target": "userDetails"
+				}
+			],
+			"targets": {
+				"usersList": {
+					"viewId": "usersList",
+					"viewName": "UsersList"
+				},
+				"userDetails": {
+					"viewId": "userDetails",
+					"viewName": "UserDetails"
+				}
+			}
+		}
+	}
+}
