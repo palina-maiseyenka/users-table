@@ -1,0 +1,77 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+    <Table
+        id="usersTable"
+        inset="false"
+        items="{
+            path: 'usersData>/UsersData',
+            sorter: {
+                path: 'dob/age'
+            }
+        }"
+        mode="MultiSelect"
+		selectionChange=".onSelectionChange">
+        <headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<ToolbarSpacer />
+                    <Button
+                        text="{i18n>createUserModalBtn}"
+                        press=".openAddUserModal"
+                        type="Accept"/>
+                    <Button
+                        text="{i18n>deleteBtn}"
+                        id="deleteUsersBtn"
+                        press=".openConfirmDeleteUserMB"
+                        type="Reject"
+                        enabled="false"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+        <columns>
+            <Column width="12em">
+                <Text text="{i18n>name}"/>
+            </Column>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true">
+                <Text text="{i18n>gender}"/>
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true">
+                <Text text="{i18n>age}"/>
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true">
+                <Text text="{i18n>country}"/>
+            </Column>
+            <Column
+                minScreenWidth="Desktop"
+                demandPopin="true">
+                <Text text="{i18n>city}"/>
+            </Column>
+            <Column hAlign="End">
+                <Text text="{i18n>email}"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem
+                type="Navigation"
+                press=".onTableRowPress">
+                <cells>                    
+                    <Text text="{usersData>name/last} {usersData>name/first}"/>
+                    <Text text="{usersData>gender}"/>
+                    <Text text="{usersData>dob/age}"/>
+                    <Text text="{usersData>location/country}"/>
+                    <Text text="{usersData>location/city}"/>
+                    <Text text="{usersData>email}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

@@ -5,7 +5,6 @@
 	xmlns:core="sap.ui.core">
         <f:SimpleForm
             id="userDetailsDisplay"
-			title="{usersData>name/last} {usersData>name/first}"
 			editable="false"
 			layout="ResponsiveGridLayout"
 			labelSpanXL="3"
@@ -20,7 +19,18 @@
 			columnsXL="1"
 			columnsL="1"
 			columnsM="1"
-			singleContainerFullSize="false" >
+			singleContainerFullSize="false">
+			<f:toolbar>
+				<Toolbar>
+					<Title text="{usersData>name/last} {usersData>name/first}"/>
+					<Button
+						text="{i18n>editBtn}"
+						id="editBtn"
+						press="onEditBtnPress"
+						type="Default"
+						icon="sap-icon://edit"/>
+				</Toolbar>
+			</f:toolbar>
 			<f:content>
 				<Label text="{i18n>gender}" />
 				<Text text="{usersData>gender}"/>

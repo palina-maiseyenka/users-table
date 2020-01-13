@@ -1,0 +1,62 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:core="sap.ui.core">
+    <fb:FilterBar
+        id="filterbar"
+        useToolbar="false"
+        showGoOnFB="false"
+        showClearOnFB="true"
+        showClearButton="true"
+        clear=".onClearFiltersBtnPress">
+        <fb:filterItems
+            items="{usersData>/FilterFunctions}">
+            <fb:FilterItem name="nameFilter" label="{i18n>byNameLabel}">
+                <fb:control>							
+                    <Input
+                        id="nameFilter"
+                        change=".onFilterChange('_createNameFilter')"/>
+                </fb:control>		
+            </fb:FilterItem>								
+            <fb:FilterItem name="ageFilter" label="{i18n>byAgeLabel}">
+                <fb:control>
+                    <HBox>			
+                        <Select
+                            forceSelection="false"            
+                            autoAdjustWidth="false"
+                            width="10%"
+                            selectedKey="more"
+                            id="ageComparison">
+                            <core:Item
+                                key="more" 
+                                text="{i18n>more}"/>
+                            <core:Item
+                                key="less"
+                                text="{i18n>less}"/>
+                        </Select>
+                        <Input
+                            id="ageFilter"
+                            type="Number"
+                            change=".onFilterChange('_createAgeFilter')"/>
+                    </HBox>
+                </fb:control>				
+            </fb:FilterItem>	
+            <fb:FilterItem name="genderFilter" label="{i18n>byGenderLabel}">
+                <fb:control>
+                    <Select
+                        id="genderFilter"
+                        forceSelection="false"
+                        change=".onFilterChange('_createGenderFilter')">
+                        <core:Item
+                            key="male"
+                            text="{i18n>male}" />
+                        <core:Item
+                            key="female"
+                            text="{i18n>female}" />
+                    </Select>
+                </fb:control>				
+            </fb:FilterItem>
+        </fb:filterItems>
+    </fb:FilterBar>
+</core:FragmentDefinition>

@@ -3,7 +3,9 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
-        <f:SimpleForm id="userDetailsEdit"
+        <f:SimpleForm
+			id="userDetailsEdit"
+			visible="false"
 			editable="true"
 			layout="ResponsiveGridLayout"
 			labelSpanXL="3"
@@ -22,43 +24,43 @@
 			<f:content>
 				<Label text="{i18n>name}" />
 				<Input
-					value="{usersData>name/last}"
+					value="{editedUser>name/last}"
 					id="surnameInput">
                     <layoutData>
-						<l:GridData span="XL1 L2 M2 S4"/>
+						<l:GridData span="XL2 L2 M2 S6"/>
 					</layoutData>
 				</Input>
 				<Input
-					value="{usersData>name/first}"
+					value="{editedUser>name/first}"
 					id="nameInput">
 					<layoutData>
-						<l:GridData span="XL1 L2 M2 S4" />
+						<l:GridData span="XL3 L3 M3 S6"/>
 					</layoutData>
 				</Input>
 				<Label text="Gender" labelFor="genderSelect"/>
 				<Select
 					id="genderSelect"
-					selectedKey="{usersData>gender}"
+					selectedKey="{editedUser>gender}"
 					forceSelection="false"
 					>
 					<core:Item key="male" text="male" />
 					<core:Item key="female" text="female" />
 				</Select>
 				<Label text="{i18n>age}"/>
-				<Input
-					value="{usersData>dob/age}"
+				<Input				
+					value="{editedUser>dob/age}"
 					id="ageInput"/>
 				<Label text="{i18n>country}"/>
-                <Input
-					value="{usersData>location/country}"
+                <Input				
+					value="{editedUser>location/country}"
 					id="countryInput"/>                
 				<Label text="{i18n>city}"/>
                 <Input
-					value="{usersData>location/city}"					
+					value="{editedUser>location/city}"					
 					id="cityInput"/>             
 				<Label text="{i18n>email}"/>
                 <Input
-					value="{usersData>email}"
+					value="{editedUser>email}"
 					id="emailInput"/>
 			</f:content>
 		</f:SimpleForm>

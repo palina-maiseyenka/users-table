@@ -1,0 +1,170 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:l="sap.ui.layout"
+   xmlns:core="sap.ui.core"
+   xmlns:f="sap.ui.layout.form">
+   <Dialog
+      id="addUserDialog"
+      title="{i18n>createUserModalTitle}"
+      contentWidth="30%"
+      class="sapUiContentPadding">
+      <content>
+
+         <f:Form
+            id="createUserForm"> 
+            <f:layout>
+               <f:ResponsiveGridLayout />
+            </f:layout>
+            <f:formContainers>
+               <f:FormContainer
+                  id="formContainer">
+                  <f:FormElement>
+                     <f:label>
+                        <Label
+                           text="{i18n>name}"
+                           required="true"/>
+                           </f:label>
+                           <f:fields>
+                              <Input
+                                 id="nameInput"                                 
+                                 change=".onInputChange"
+                                 value="{
+                                       path: 'name/first',
+                                       type: 'sap.ui.model.type.String',
+                                       constraints: {
+                                          minLength: 2
+                                       }}"/>
+                           </f:fields>
+                     </f:FormElement>
+
+                     <f:FormElement>
+                           <f:label>
+                              <Label text="{i18n>surname}"/>
+                           </f:label>
+                           <f:fields>
+                              <Input
+                                 id="surnameInput"
+                                 required="true"              
+                                 change=".onInputChange"  
+                                 value="{
+                                       path: 'name/last',
+                                       type: 'sap.ui.model.type.String',
+                                       constraints: {
+                                          minLength: 2
+                                       }}"/>
+                           </f:fields>
+                     </f:FormElement>
+
+                     <f:FormElement>
+                        <f:label>
+                           <Label
+                              text="{i18n>gender}"
+                              required="true"/>
+                        </f:label>
+                        <f:fields>
+                           <Select
+                              id="genderSelect"
+                              forceSelection="false"
+                              autoAdjustWidth="false"
+                              selectedKey="{gender}"
+                              width="100%">
+                                 <core:Item key="male" text="{i18n>male}" />
+                                 <core:Item key="female" text="{i18n>female}" />
+                           </Select>
+                        </f:fields>
+                     </f:FormElement>
+
+                     <f:FormElement>
+                           <f:label>
+                              <Label
+                                 text="{i18n>age}"
+                                 required="true"/>
+                           </f:label>
+                           <f:fields>
+                              <Input
+                                 id="ageInput"              
+                                 change=".onInputChange"  
+                                 value="{
+                                       path: 'dob/age',
+                                       type: 'sap.ui.model.type.Integer',
+                                       constraints: {
+                                          minimum: 0,
+                                          maximum: 100
+                                       }}"/>
+                           </f:fields>
+                     </f:FormElement>
+
+                     <f:FormElement>
+                           <f:label>
+                              <Label
+                                 text="{i18n>country}"
+                                 required="true"/>
+                           </f:label>
+                           <f:fields>
+                              <Input
+                                 id="countryInput"              
+                                 change=".onInputChange"  
+                                 value="{
+                                       path: 'location/country',
+                                       type: 'sap.ui.model.type.String',
+                                       constraints: {
+                                          minLength: 5
+                                       }}"/>
+                           </f:fields>
+                     </f:FormElement>
+
+                     <f:FormElement>
+                           <f:label>
+                              <Label
+                                 text="{i18n>city}"
+                                 required="true"/>
+                           </f:label>
+                           <f:fields>
+                              <Input
+                                 id="cityInput"              
+                                 change=".onInputChange"  
+                                 value="{
+                                       path: 'location/city',
+                                       type: 'sap.ui.model.type.String',
+                                       constraints: {
+                                          minLength: 5
+                                       }
+                                 }"/>
+                           </f:fields>
+                     </f:FormElement>
+
+                     <f:FormElement>
+                           <f:label>
+                              <Label
+                                 text="{i18n>email}"         
+                                 required="true"/>
+                           </f:label>
+                           <f:fields>
+                              <Input
+                                 id="emailInput"      
+                                 change=".onInputChange" 
+                                 value="{
+                                       path: 'email',
+                                       type: 'sap.ui.model.type.String'
+                                 }"/>
+                           </f:fields>
+                     </f:FormElement>
+                    </f:FormContainer>
+                </f:formContainers>
+         </f:Form>
+      </content>
+      <beginButton>
+			<Button
+				text="{i18n>submitBtn}"
+            enabled="false"
+            type="Accept"
+            id="submitBtn"
+            press=".onSubmitDialog"/>
+		</beginButton>
+      <endButton>
+			<Button
+				text="{i18n>closeBtn}"
+				press=".onCloseDialog"/>
+		</endButton>      
+   </Dialog>
+</core:FragmentDefinition>

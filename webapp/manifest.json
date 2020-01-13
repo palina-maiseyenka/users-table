@@ -25,6 +25,7 @@
 		}
 	},
 	"sap.ui5": {
+		"handleValidation": true,
 		"rootView": {
 			"viewName": "palina.maiseyenka.view.App",
 			"type": "XML",
@@ -34,7 +35,9 @@
 		"dependencies": {
 			"minUI5Version": "1.60",
 			"libs": {
-				"sap.m": {}
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {}
 			}
 		},
 		"models": {
@@ -65,7 +68,7 @@
 					"target": "usersList"
 				},
 				{
-					"pattern": "userDetails/{invoicePath}",
+					"pattern": "userDetails/{index}",
 					"name": "userDetails",
 					"target": "userDetails"
 				}
