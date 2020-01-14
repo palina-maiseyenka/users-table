@@ -20,12 +20,12 @@
 					<ToolbarSpacer />
                     <Button
                         text="{i18n>createUserModalBtn}"
-                        press=".openAddUserModal"
+                        press=".onOpenAddUserModal"
                         type="Accept"/>
                     <Button
                         text="{i18n>deleteBtn}"
                         id="deleteUsersBtn"
-                        press=".openConfirmDeleteUserMB"
+                        press=".onOpenConfirmDeleteUserMB"
                         type="Reject"
                         enabled="false"/>
 				</content>

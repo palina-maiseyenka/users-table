@@ -20,48 +20,92 @@
 			columnsXL="1"
 			columnsL="1"
 			columnsM="1"
-			singleContainerFullSize="false" >
+			singleContainerFullSize="false">
+			<f:toolbar>
+				<Toolbar>
+					<Title text="{editedUser>/EditedUser/name/last} {editedUser>/EditedUser/name/first}"/>
+					<Button
+						text="{i18n>saveBtn}"
+						id="saveBtn"
+						press=".onSaveBtnPress"
+						visible="false"
+						type="Default"
+						icon="sap-icon://save"/>
+				</Toolbar>
+			</f:toolbar>
 			<f:content>
 				<Label text="{i18n>name}" />
 				<Input
-					value="{editedUser>name/last}"
-					id="surnameInput">
+				    change=".onInputChange"
+					value="{
+						path: 'usersData>name/last',
+						type: 'sap.ui.model.type.String',
+						constraints: {
+							minLength: 2
+						}}">
                     <layoutData>
 						<l:GridData span="XL2 L2 M2 S6"/>
 					</layoutData>
 				</Input>
 				<Input
-					value="{editedUser>name/first}"
-					id="nameInput">
+					value="{
+						path: 'usersData>name/first',
+						type: 'sap.ui.model.type.String',
+						constraints: {
+							minLength: 2
+						}}"
+				    change=".onInputChange">
 					<layoutData>
 						<l:GridData span="XL3 L3 M3 S6"/>
 					</layoutData>
 				</Input>
 				<Label text="Gender" labelFor="genderSelect"/>
 				<Select
-					id="genderSelect"
-					selectedKey="{editedUser>gender}"
+					selectedKey="{usersData>gender}"
 					forceSelection="false"
 					>
 					<core:Item key="male" text="male" />
 					<core:Item key="female" text="female" />
 				</Select>
 				<Label text="{i18n>age}"/>
-				<Input				
-					value="{editedUser>dob/age}"
-					id="ageInput"/>
+				<Input
+					value="{
+						path: 'usersData>dob/age',
+						type: 'sap.ui.model.type.Integer',
+						constraints: {
+							minimum: 0,
+							maximum: 100
+						}}"
+				    change=".onInputChange"/>
 				<Label text="{i18n>country}"/>
-                <Input				
-					value="{editedUser>location/country}"
-					id="countryInput"/>                
+                <Input			
+					value="{
+						path: 'usersData>location/country',
+						type: 'sap.ui.model.type.String',
+						constraints: {
+							minLength: 5
+						}}"
+				    change=".onInputChange"/>                
 				<Label text="{i18n>city}"/>
                 <Input
-					value="{editedUser>location/city}"					
-					id="cityInput"/>             
+					value="{
+						path: 'usersData>location/city',
+						type: 'sap.ui.model.type.String',
+						constraints: {
+							minLength: 5
+						}
+					}"
+				    change=".onInputChange"/>             
 				<Label text="{i18n>email}"/>
                 <Input
-					value="{editedUser>email}"
-					id="emailInput"/>
+					value="{
+						path: 'usersData>email',
+						type: 'sap.ui.model.type.String',
+						constraints: {
+							minLength: 2
+						}
+					}"
+				    change=".onInputChange"/>
 			</f:content>
 		</f:SimpleForm>
 </core:FragmentDefinition>

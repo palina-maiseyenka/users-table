@@ -17,8 +17,8 @@ sap.ui.define([
 
         validateValue: function () {
             var email = this.getView().byId("emailInput").getValue();
-            var mailregex = new RegExp(/^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/);
-            if (!mailregex.test(email)) {
+            var mailRegex = new RegExp(/^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/);
+            if (!mailRegex.test(email)) {
                 throw new ValidateException(email + " is not a valid email address");
             }
         }

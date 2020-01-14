@@ -22,11 +22,23 @@ sap.ui.define([
 
 			if (!oView.byId("addUserDialog")) {
 				var oFragmentController = {
+
+					/**
+					 * Event handler dialog closing.
+					 * Destroys binding context and closes dialog
+					 * @public
+					 */
 					onCloseDialog: function () {
 						oView.byId("createUserForm").getBindingContext().destroy();
 						oView.byId("addUserDialog").close();
 					},
 
+					/**
+					 * Event handler for submitting new user creation.
+					 * Gets model property with new user info and checks form validity.
+					 * If form is valid new user info is pushed into UsersData model property.
+					 * @public
+					 */
 					onSubmitDialog: function () {
 						var oMessages = oView.getModel("message").getData();
 						var oModel = oView.getModel("usersData");
@@ -41,6 +53,11 @@ sap.ui.define([
 						this.onCloseDialog();
 					},
 
+					/**
+					 * Event handler for form input change.
+					 * Validates form inputs and hides submit button if form is not valid.
+					 * @public
+					 */
 					onInputChange: function (oEvent) {
 						var sValue = oEvent.getParameter("value");
 						var oInput = oEvent.getSource();
@@ -60,6 +77,12 @@ sap.ui.define([
 						}
 					},
 
+					/**
+					 * Checks whether all object values are not empty.
+					 * @property {Object} object - object to be checked.
+					 * @returns {Boolean} returns true if all values are filled.
+					 * @private
+					 */
 					_isObjectFilled: function (object) {
 						for (var key in object) {
 							if (typeof object[key] === "object") {
@@ -84,6 +107,7 @@ sap.ui.define([
 				oView.byId("addUserDialog").open();
 			}
 
+			//set newUser property to model to bind it to new user creation form
 			var oModel = oView.getModel("usersData");
 			oModel.setProperty("/NewUser", {
 				"name": {
@@ -104,6 +128,7 @@ sap.ui.define([
 			oForm.setModel(oModel);
 			oForm.setBindingContext(new Context(oModel, "/NewUser"));
 
+			//sets validation messages model to View
 			var oMessageManager = sap.ui.getCore().getMessageManager();
 			oView.setModel(oMessageManager.getMessageModel(), "message");
 			oMessageManager.registerObject(oView.byId("createUserForm"), true);

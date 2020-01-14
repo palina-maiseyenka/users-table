@@ -25,15 +25,15 @@
                            required="true"/>
                            </f:label>
                            <f:fields>
-                              <Input
-                                 id="nameInput"                                 
+                              <Input                               
                                  change=".onInputChange"
                                  value="{
                                        path: 'name/first',
                                        type: 'sap.ui.model.type.String',
                                        constraints: {
                                           minLength: 2
-                                       }}"/>
+                                       }}"
+                                 placeholder="{i18n>namePlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
 
@@ -43,7 +43,6 @@
                            </f:label>
                            <f:fields>
                               <Input
-                                 id="surnameInput"
                                  required="true"              
                                  change=".onInputChange"  
                                  value="{
@@ -51,7 +50,8 @@
                                        type: 'sap.ui.model.type.String',
                                        constraints: {
                                           minLength: 2
-                                       }}"/>
+                                       }}"
+                                 placeholder="{i18n>surnamePlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
 
@@ -63,7 +63,6 @@
                         </f:label>
                         <f:fields>
                            <Select
-                              id="genderSelect"
                               forceSelection="false"
                               autoAdjustWidth="false"
                               selectedKey="{gender}"
@@ -81,8 +80,7 @@
                                  required="true"/>
                            </f:label>
                            <f:fields>
-                              <Input
-                                 id="ageInput"              
+                              <Input            
                                  change=".onInputChange"  
                                  value="{
                                        path: 'dob/age',
@@ -90,7 +88,8 @@
                                        constraints: {
                                           minimum: 0,
                                           maximum: 100
-                                       }}"/>
+                                       }}"
+                                 placeholder="{i18n>agePlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
 
@@ -101,15 +100,15 @@
                                  required="true"/>
                            </f:label>
                            <f:fields>
-                              <Input
-                                 id="countryInput"              
+                              <Input             
                                  change=".onInputChange"  
                                  value="{
                                        path: 'location/country',
                                        type: 'sap.ui.model.type.String',
                                        constraints: {
                                           minLength: 5
-                                       }}"/>
+                                       }}"
+                                 placeholder="{i18n>countryPlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
 
@@ -120,16 +119,15 @@
                                  required="true"/>
                            </f:label>
                            <f:fields>
-                              <Input
-                                 id="cityInput"              
+                              <Input              
                                  change=".onInputChange"  
                                  value="{
                                        path: 'location/city',
                                        type: 'sap.ui.model.type.String',
                                        constraints: {
                                           minLength: 5
-                                       }
-                                 }"/>
+                                       }}"
+                                 placeholder="{i18n>cityPlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
 
@@ -140,13 +138,13 @@
                                  required="true"/>
                            </f:label>
                            <f:fields>
-                              <Input
-                                 id="emailInput"      
+                              <Input     
                                  change=".onInputChange" 
                                  value="{
                                        path: 'email',
                                        type: 'sap.ui.model.type.String'
-                                 }"/>
+                                 }"
+                                 placeholder="{i18n>emailPlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
                     </f:FormContainer>

@@ -16,7 +16,8 @@
                 <fb:control>							
                     <Input
                         id="nameFilter"
-                        change=".onFilterChange('_createNameFilter')"/>
+                        change=".onFilterChange('_createNameFilter')"
+                        placeholder="{i18n>namePlaceholder}"/>
                 </fb:control>		
             </fb:FilterItem>								
             <fb:FilterItem name="ageFilter" label="{i18n>byAgeLabel}">
@@ -38,7 +39,8 @@
                         <Input
                             id="ageFilter"
                             type="Number"
-                            change=".onFilterChange('_createAgeFilter')"/>
+                            change=".onFilterChange('_createAgeFilter')"
+                            placeholder="{i18n>agePlaceholder}"/>
                     </HBox>
                 </fb:control>				
             </fb:FilterItem>	
