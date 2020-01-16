@@ -6,8 +6,7 @@
 	xmlns:core="sap.ui.core">    
     <f:Card
         id="salaryChart"
-        height="300px"
-        class="sapUiMediumMarginTop">
+        height="20em">
         <f:header>
             <card:Header
                 title="{i18n>salaryChartTitle}"/>
@@ -24,9 +23,12 @@
                 </points>
             </InteractiveLineChart> 
         </f:content>
-    </f:Card>        
-    <m:Text
-        visible="false"
-        id="noSalaryDataText"
-        text="{i18n>noSalaryDataText}"/>       
+    </f:Card> 
+    <m:MessageStrip
+        text="{i18n>noSalaryDataText}"
+        type="Warning"
+        showIcon="true"
+        visible="{appView>/fragmentsVisibility/noSalaryDataText}"
+        class="sapUiMediumMarginBottom">
+	</m:MessageStrip>    
 </core:FragmentDefinition>

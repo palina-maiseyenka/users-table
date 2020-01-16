@@ -21,13 +21,13 @@
                     <Button
                         text="{i18n>createUserModalBtn}"
                         press=".onOpenAddUserModal"
-                        type="Accept"/>
+                        type="Transparent"/>
                     <Button
                         text="{i18n>deleteBtn}"
                         id="deleteUsersBtn"
                         press=".onOpenConfirmDeleteUserMB"
-                        type="Reject"
-                        enabled="false"/>
+                        type="Transparent"
+                        enabled="{appView>/buttonsVisibility/deleteBtn}"/>
 				</content>
 			</OverflowToolbar>
 		</headerToolbar>

@@ -1,7 +1,9 @@
 sap.ui.define([
 	"sap/ui/base/ManagedObject",
 	"sap/ui/core/Fragment",
-	"sap/ui/model/Context"
+	"sap/ui/model/Context",
+	"palina/maiseyenka/model/customNameType",
+	"palina/maiseyenka/model/customEmailType"
 ], function (ManagedObject, Fragment, Context) {
 	"use strict";
 
@@ -9,17 +11,16 @@ sap.ui.define([
 
 		constructor: function (oView) {
 			this._oView = oView;
+			this._oMessageManager = sap.ui.getCore().getMessageManager();
 		},
 
 		exit: function () {
 			delete this._oView;
-			sap.ui.getCore().getMessageManager().removeAllMessages();
+			this._oMessageManager.removeAllMessages();
 		},
 
 		open: function () {
-
 			var oView = this._oView;
-
 			if (!oView.byId("addUserDialog")) {
 				var oFragmentController = {
 
@@ -66,9 +67,12 @@ sap.ui.define([
 						var oNewUser = oForm.getBindingContext().getObject();
 						if (oMessages.length !== 0 || !this._isObjectFilled(oNewUser)) {
 							oView.byId("submitBtn").setEnabled(false);
+							// this.enableBtn("submitBtn", false)
+
 							return;
 						} else {
 							oView.byId("submitBtn").setEnabled(true);
+							// oView.byId("submitBtn").setEnabled(true);
 						}
 						if (sValue === "") {
 							oInput.setValueState(sap.ui.core.ValueState.Error);
@@ -129,9 +133,8 @@ sap.ui.define([
 			oForm.setBindingContext(new Context(oModel, "/NewUser"));
 
 			//sets validation messages model to View
-			var oMessageManager = sap.ui.getCore().getMessageManager();
-			oView.setModel(oMessageManager.getMessageModel(), "message");
-			oMessageManager.registerObject(oView.byId("createUserForm"), true);
+			oView.setModel(this._oMessageManager.getMessageModel(), "message");
+			this._oMessageManager.registerObject(oView.byId("createUserForm"), true);
 		}
 	});
 });

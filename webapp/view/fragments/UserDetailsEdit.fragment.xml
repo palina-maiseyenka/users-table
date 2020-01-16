@@ -4,8 +4,8 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
         <f:SimpleForm
-			id="userDetailsEdit"
-			visible="false"
+			id="userDetailsEdit" 
+			visible="{appView>/fragmentsVisibility/userDetailsEdit}"
 			editable="true"
 			layout="ResponsiveGridLayout"
 			labelSpanXL="3"
@@ -28,21 +28,20 @@
 						text="{i18n>saveBtn}"
 						id="saveBtn"
 						press=".onSaveBtnPress"
-						visible="false"
+						enabled="{appView>/buttonsVisibility/saveBtn}"
 						type="Default"
 						icon="sap-icon://save"/>
 				</Toolbar>
 			</f:toolbar>
 			<f:content>
-				<Label text="{i18n>name}" />
+				<Label text="{i18n>name}"/>
 				<Input
+				    id="surnameInput"
 				    change=".onInputChange"
 					value="{
 						path: 'usersData>name/last',
-						type: 'sap.ui.model.type.String',
-						constraints: {
-							minLength: 2
-						}}">
+						type: 'palina.maiseyenka.model.customNameType'
+					}">
                     <layoutData>
 						<l:GridData span="XL2 L2 M2 S6"/>
 					</layoutData>
@@ -50,23 +49,20 @@
 				<Input
 					value="{
 						path: 'usersData>name/first',
-						type: 'sap.ui.model.type.String',
-						constraints: {
-							minLength: 2
-						}}"
+						type: 'palina.maiseyenka.model.customNameType'
+					}"
 				    change=".onInputChange">
 					<layoutData>
 						<l:GridData span="XL3 L3 M3 S6"/>
 					</layoutData>
 				</Input>
 				<Label text="Gender" labelFor="genderSelect"/>
-				<Select
+				<ComboBox
 					selectedKey="{usersData>gender}"
-					forceSelection="false"
 					>
-					<core:Item key="male" text="male" />
-					<core:Item key="female" text="female" />
-				</Select>
+					<core:Item key="male" text="male"/>
+					<core:Item key="female" text="female"/>
+				</ComboBox>
 				<Label text="{i18n>age}"/>
 				<Input
 					value="{
@@ -100,10 +96,7 @@
                 <Input
 					value="{
 						path: 'usersData>email',
-						type: 'sap.ui.model.type.String',
-						constraints: {
-							minLength: 2
-						}
+						type: 'palina.maiseyenka.model.customEmailType'
 					}"
 				    change=".onInputChange"/>
 			</f:content>

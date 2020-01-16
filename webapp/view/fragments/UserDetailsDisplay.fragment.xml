@@ -5,6 +5,7 @@
 	xmlns:core="sap.ui.core">
         <f:SimpleForm
             id="userDetailsDisplay"
+			visible="{appView>/fragmentsVisibility/userDetailsDisplay}"
 			editable="false"
 			layout="ResponsiveGridLayout"
 			labelSpanXL="1"

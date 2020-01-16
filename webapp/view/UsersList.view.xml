@@ -1,28 +1,36 @@
 <mvc:View
 	controllerName="palina.maiseyenka.controller.UsersList"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"	
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
-	xmlns:f="sap.f"
-	xmlns:vm="sap.ui.comp.variants"
+	xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true">
-	<f:DynamicPage>
-		<f:title>
-			<f:DynamicPageTitle>
-				<f:heading>
-					<Title text="{i18n>homePageTitle}"/>		
-				</f:heading>
-			</f:DynamicPageTitle>
-		</f:title>
-		<f:header>
-			<f:DynamicPageHeader pinnable="true">
-				<f:content>
-					<core:Fragment fragmentName="palina.maiseyenka.view.fragments.FilterBar" type="XML"/>
-				</f:content>
-			</f:DynamicPageHeader>
-		</f:header>
-		<f:content>
-			<core:Fragment fragmentName="palina.maiseyenka.view.fragments.UsersTable" type="XML"/>
-		</f:content>
-	</f:DynamicPage>
+
+	<ObjectPageLayout>
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="{i18n>homePageTitle}" wrapping="true"/>
+				</expandedHeading>
+				<snappedHeading>
+					<m:Title text="{i18n>homePageTitle}" wrapping="true"/>
+				</snappedHeading>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+			<core:Fragment fragmentName="palina.maiseyenka.view.fragments.FilterBar" type="XML"/>
+		</headerContent>
+		<sections>
+			<ObjectPageSection showTitle="false">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>							
+							<core:Fragment fragmentName="palina.maiseyenka.view.fragments.UsersTable" type="XML"/>
+						</blocks>
+					</ObjectPageSubSection>					
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
 </mvc:View>

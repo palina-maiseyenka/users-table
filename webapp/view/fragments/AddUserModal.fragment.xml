@@ -29,10 +29,8 @@
                                  change=".onInputChange"
                                  value="{
                                        path: 'name/first',
-                                       type: 'sap.ui.model.type.String',
-                                       constraints: {
-                                          minLength: 2
-                                       }}"
+                                       type: 'palina.maiseyenka.model.customNameType'
+                                 }"
                                  placeholder="{i18n>namePlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
@@ -47,10 +45,8 @@
                                  change=".onInputChange"  
                                  value="{
                                        path: 'name/last',
-                                       type: 'sap.ui.model.type.String',
-                                       constraints: {
-                                          minLength: 2
-                                       }}"
+                                       type: 'palina.maiseyenka.model.customNameType'
+                                 }"
                                  placeholder="{i18n>surnamePlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
@@ -62,14 +58,13 @@
                               required="true"/>
                         </f:label>
                         <f:fields>
-                           <Select
-                              forceSelection="false"
-                              autoAdjustWidth="false"
+                           <ComboBox
                               selectedKey="{gender}"
+                              placeholder="{i18n>genderPlaceholder}"
                               width="100%">
                                  <core:Item key="male" text="{i18n>male}" />
                                  <core:Item key="female" text="{i18n>female}" />
-                           </Select>
+                           </ComboBox>
                         </f:fields>
                      </f:FormElement>
 
@@ -142,8 +137,8 @@
                                  change=".onInputChange" 
                                  value="{
                                        path: 'email',
-                                       type: 'sap.ui.model.type.String'
-                                 }"
+                                       type: 'palina.maiseyenka.model.customEmailType'
+					                  }"
                                  placeholder="{i18n>emailPlaceholder}"/>
                            </f:fields>
                      </f:FormElement>
@@ -154,7 +149,7 @@
       <beginButton>
 			<Button
 				text="{i18n>submitBtn}"
-            enabled="false"
+            enabled="{appView>/buttonsVisibility/submitBtn}"
             type="Accept"
             id="submitBtn"
             press=".onSubmitDialog"/>

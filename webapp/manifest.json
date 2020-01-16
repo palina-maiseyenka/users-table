@@ -37,7 +37,9 @@
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
-				"sap.ui.layout": {}
+				"sap.ui.layout": {},
+				"sap.f": {},
+				"sap.uxap": {}
 			}
 		},
 		"models": {
@@ -59,6 +61,9 @@
 				"viewPath": "palina.maiseyenka.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "notFound"
+				},
 				"async": true
 			},
 			"routes": [
@@ -81,6 +86,11 @@
 				"userDetails": {
 					"viewId": "userDetails",
 					"viewName": "UserDetails"
+				},
+				"notFound": {
+					"viewId": "notFound",
+					"viewName": "NotFound",
+					"transition": "show"
 				}
 			}
 		}

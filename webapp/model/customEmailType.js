@@ -15,11 +15,11 @@ sap.ui.define([
             return sValue;
         },
 
-        validateValue: function () {
-            var email = this.getView().byId("emailInput").getValue();
-            var mailRegex = new RegExp(/^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/);
-            if (!mailRegex.test(email)) {
-                throw new ValidateException(email + " is not a valid email address");
+        validateValue: function (sValue) {
+            //input value should match example@mail.com pattern
+            var emailRegex = new RegExp(/^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/);
+            if (!emailRegex.test(sValue)) {
+                throw new ValidateException(sValue + " is not a valid email address. Value should match pattern example@mail.com");
             }
         }
     });

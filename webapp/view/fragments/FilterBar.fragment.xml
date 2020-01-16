@@ -22,11 +22,10 @@
             </fb:FilterItem>								
             <fb:FilterItem name="ageFilter" label="{i18n>byAgeLabel}">
                 <fb:control>
-                    <HBox>			
-                        <Select
-                            forceSelection="false"            
-                            autoAdjustWidth="false"
-                            width="10%"
+                    <FlexBox
+					alignItems="Stretch">
+					<items>			
+                        <Select      
                             selectedKey="more"
                             id="ageComparison">
                             <core:Item
@@ -35,20 +34,28 @@
                             <core:Item
                                 key="less"
                                 text="{i18n>less}"/>
+                                <layoutData>
+								<FlexItemData growFactor="1" />
+							</layoutData>
                         </Select>
                         <Input
-                            id="ageFilter"
+                            id="ageFilter"  
                             type="Number"
                             change=".onFilterChange('_createAgeFilter')"
-                            placeholder="{i18n>agePlaceholder}"/>
-                    </HBox>
+                            placeholder="{i18n>agePlaceholder}">
+                            <layoutData>
+								<FlexItemData growFactor="2" />
+							</layoutData>
+                        </Input>
+                    </items>
+				</FlexBox>
                 </fb:control>				
             </fb:FilterItem>	
             <fb:FilterItem name="genderFilter" label="{i18n>byGenderLabel}">
                 <fb:control>
-                    <Select
+                    <ComboBox
                         id="genderFilter"
-                        forceSelection="false"
+                        placeholder="{i18n>genderPlaceholder}"
                         change=".onFilterChange('_createGenderFilter')">
                         <core:Item
                             key="male"
@@ -56,7 +63,7 @@
                         <core:Item
                             key="female"
                             text="{i18n>female}" />
-                    </Select>
+                    </ComboBox>
                 </fb:control>				
             </fb:FilterItem>
         </fb:filterItems>

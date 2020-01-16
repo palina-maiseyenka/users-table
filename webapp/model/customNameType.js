@@ -11,14 +11,13 @@ sap.ui.define([
             return sValue;
         },
 
-        parseValue: function(sValue) {
+        parseValue: function(sValue) {            
             return sValue;
         },
         
         validateValue: function(sValue) {
             if(sValue.length < 3) {
-                debugger
-                throw new ValidateException(sValue+" is not valid");
+                throw new ValidateException("Enter a value that has more than 3 symbols");
             }
         }
     });

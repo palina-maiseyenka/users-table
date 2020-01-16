@@ -1,33 +1,49 @@
 <mvc:View
 	controllerName="palina.maiseyenka.controller.UserDetails"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:l="sap.ui.layout"
-	xmlns:f="sap.f"
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
-	displayBlock="true"> 	
-	<f:DynamicPage
-		id="detailsPage">
-		<f:title>
-			<f:DynamicPageTitle>
-				<f:heading>
-					<Title
-						text="{i18n>detailsPage}"
-						class="sapUiTinyMargin"/>	
-				</f:heading>
-				<f:navigationActions>
-					<Button type="Back" press=".onNavBack"/>
-				</f:navigationActions>
-			</f:DynamicPageTitle>
-		</f:title>
-		<f:content>
-			<VBox
-				id="userFormContainer"
-				class="sapUiMediumMargin">
-				<core:Fragment fragmentName="palina.maiseyenka.view.fragments.UserDetailsDisplay" type="XML"/>
-				<core:Fragment fragmentName="palina.maiseyenka.view.fragments.UserDetailsEdit" type="XML"/>
-				<core:Fragment fragmentName="palina.maiseyenka.view.fragments.SalaryChart" type="XML"/>
-			</VBox>
-		</f:content>
-	</f:DynamicPage>
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true">
+	<ObjectPageLayout>
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="{i18n>detailsPage}" wrapping="true" class="sapUiTinyMarginTop"/>
+				</expandedHeading>
+				<snappedHeading>
+					<m:Title text="{i18n>detailsPage}" wrapping="true" class="sapUiTinyMarginTop"/>
+				</snappedHeading>
+				<actions>
+				</actions>
+				<navigationActions>
+					<m:OverflowToolbarButton type="Back" press=".onNavBtnPress"/>
+				</navigationActions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<sections>
+			<ObjectPageSection showTitle="false">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<core:Fragment
+								fragmentName="palina.maiseyenka.view.fragments.UserDetailsDisplay"
+								type="XML"/>
+							<core:Fragment
+								fragmentName="palina.maiseyenka.view.fragments.UserDetailsEdit"
+								type="XML"/>
+						</blocks>
+					</ObjectPageSubSection>	
+					<ObjectPageSubSection>
+						<blocks>							
+							<core:Fragment
+								fragmentName="palina.maiseyenka.view.fragments.SalaryChart"
+								type="XML"/>
+						</blocks>
+					</ObjectPageSubSection>					
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
 </mvc:View>   	

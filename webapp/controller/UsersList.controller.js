@@ -1,13 +1,16 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "./AddUserModal",
     "sap/m/MessageBox"
-], function (Controller, Filter, FilterOperator, AddUserModal, MessageBox) {
+], function (BaseController, Filter, FilterOperator, AddUserModal, MessageBox) {
     "use strict";
 
-    return Controller.extend("palina.maiseyenka.controller.UsersList", {
+    return BaseController.extend("palina.maiseyenka.controller.UsersList", {
+
+        /** Variable to collect all filters */
+        _aFilter: [],
 
         /* =========================================================== */
 		/* lifecycle methods                                           */
@@ -17,9 +20,6 @@ sap.ui.define([
             var oView = this.getView();
 
             this._addUserModal = new AddUserModal(oView);
-
-            var oModel = this.getOwnerComponent().getModel("usersData");
-            oModel.setProperty("/UsersForDeletion", []);  
         },
 
         exit: function () {
@@ -48,18 +48,16 @@ sap.ui.define([
 		 */
         onOpenConfirmDeleteUserMB: function () {
             var bCompact = !!this.getView().$().closest(".sapUiSizeCompact").length;
-            var oView = this.getView();
-            var oBundle = oView.getModel("i18n").getResourceBundle();
+            var oBundle = this.getResourceBundle();
             var sMsg = oBundle.getText("deleteUserConfirmMessage");
-            var deleteUsers = this._deleteSelectedUsers;
 			MessageBox.confirm(
 				sMsg, {
                     styleClass: bCompact ? "sapUiSizeCompact" : "",
                     onClose: function (sButton) {
                         if(sButton === MessageBox.Action.OK) {                            
-                            deleteUsers(oView);
+                            this._deleteSelectedUsers();
                         }
-                    }
+                    }.bind(this)
 				}
             );
         },
@@ -67,23 +65,15 @@ sap.ui.define([
         /**
 		 * Event handler for selecting users in table by toggling checkboxes.
 		 * Toggles delete button.
-         * Puts selected users into UsersForDeletion model property.
 		 * @public
 		 */
-        onSelectionChange: function (oEvent) {
-            var aSelected = oEvent.getSource().getSelectedContextPaths();  
-            var oModel = this.oView.getModel("usersData");
-            var aUsersForDeletion = [];
-            aSelected.map(sPath => {
-                var oSelectedUser = oModel.getProperty(sPath);
-                aUsersForDeletion.push(oSelectedUser);
-            })
-            oModel.setProperty("/UsersForDeletion", aUsersForDeletion);
-            this._toggleDeleteButton(aUsersForDeletion);        
+        onSelectionChange: function () {
+            var aSelectedUsers = this.oView.byId("usersTable").getSelectedContextPaths();
+            this.enableBtn("deleteBtn", !!aSelectedUsers.length);
         },
 
         /**
-		 * Event handler for filterbox clear filters button press.
+		 * Event handler for filterBar clear filters button press.
 		 * Clears all filters.
 		 * @public
 		 */
@@ -95,20 +85,20 @@ sap.ui.define([
 
             this.oView.byId("nameFilter").setValue("");
             this.oView.byId("ageFilter").setValue("");
-            this.oView.byId("genderFilter").setSelectedKey("");
+            this.oView.byId("genderFilter").setSelectedKey(null);
         },
 
         /**
 		 * Event handler for selecting table row.
 		 * Navigates to selected user details page.
+         * @param {sap.ui.base.Event} oEvent an event containing pressed row.
 		 * @public
 		 */
         onTableRowPress: function (oEvent) {
             var oItem = oEvent.getSource();
-
             // splits Path ("/UsersData/0/") to get index
             var sIndex = oItem.getBindingContext("usersData").getPath().split("/")[2];
-            var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            var oRouter = this.getRouter();
             oRouter.navTo("userDetails", {
                 index: sIndex
             });
@@ -118,15 +108,16 @@ sap.ui.define([
 		 * Event handler for filter input change.
 		 * Creates filter and pushes it into _aFilter variable
          * @function
-		 * @param {String} sFnName name of a function for filter creation
+		 * @param {string} sFnName name of a function for filter creation
 		 * @public
 		 */
         onFilterChange: function (sFnName) {
-            debugger;
             var oTable = this.oView.byId("usersTable");
             var oBinding = oTable.getBinding("items");
             var oFilter = this[sFnName]();
-            this._aFilter = this._aFilter.filter(filter => filter.sPath != oFilter.sPath);
+            this._aFilter = this._aFilter.filter(function (filter) {
+                return filter.sPath != oFilter.sPath
+            });
             this._aFilter.push(oFilter);
             oBinding.filter(this._aFilter);
         },
@@ -134,48 +125,33 @@ sap.ui.define([
         /* =========================================================== */
 		/* internal methods                                            */
         /* =========================================================== */
-        
-        /**
-		 * Toggles delete button.
-         * If array has data the delete button is active.
-         * If array is empty the delete button is inactive.
-		 * @function
-		 * @param {Array} aUsersForDeletion is an array of users for deletion
-		 * @private
-		 */
-        _toggleDeleteButton: function (aUsersForDeletion) {
-            var oDeleteUsersBtn = this.oView.byId("deleteUsersBtn");
-            if (!aUsersForDeletion.length) {
-                oDeleteUsersBtn.setEnabled(false);
-                return;
-            }
-            oDeleteUsersBtn.setEnabled(true);
-        },
 
         /**
 		 * Deletes selected users from model.
 		 * @function
-		 * @param {sap.ui.core.mvc.View} oView 
 		 * @private
 		 */
-        _deleteSelectedUsers: function (oView) {
-            var oModel = oView.getModel("usersData");
+        _deleteSelectedUsers: function () {
+            var aSelectedUsers = this.oView.byId("usersTable").getSelectedContextPaths();
+            var oModel = this.getModel("usersData");
             var aUsers = oModel.getProperty("/UsersData");
-            var aUsersForDeletion = oModel.getProperty("/UsersForDeletion");
-            var aNewUsers = aUsers.filter(index => aUsersForDeletion.indexOf(index) < 0);
+            var aUsersForDeletion = [];
+            aUsersForDeletion = aSelectedUsers.map(function(sPath) {
+                return oModel.getProperty(sPath);
+            });            
+            var aNewUsers = aUsers.filter(function(index) {
+               return aUsersForDeletion.indexOf(index) < 0;
+            });
             oModel.setProperty("/UsersData", aNewUsers);
-            oView.byId("usersTable").removeSelections();
-            oView.byId("deleteUsersBtn").setEnabled(false);
+            this.oView.byId("usersTable").removeSelections();
+            this.enableBtn("deleteBtn", false);
         },
-
-       /** Variable to collect all filters */
-        _aFilter: [],
 
         /**
 		 * Creates name filter.
          * Name value should contain input string.
 		 * @function
-         * @returns {sap.ui.model.Filter}
+         * @returns {sap.ui.model.Filter} filter by name which contains input value.
 		 * @private
 		 */
         _createNameFilter: function () {
@@ -195,7 +171,7 @@ sap.ui.define([
          * Age value should be greater then or less then input value.
          * Filter operator depends on comparison sign selected by user.
 		 * @function
-         * @returns {sap.ui.model.Filter}
+         * @returns {sap.ui.model.Filter} filter by age which is greater or less than input value.
 		 * @private
 		 */
         _createAgeFilter: function () {
@@ -218,7 +194,7 @@ sap.ui.define([
 		 * Creates gender filter.
          * Gender value should be equal to selected value.
 		 * @function
-         * @returns {sap.ui.model.Filter}
+         * @returns {sap.ui.model.Filter} filter by gender which is equal to input value.
 		 * @private
 		 */
         _createGenderFilter: function () {
